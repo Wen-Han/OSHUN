@@ -910,15 +910,15 @@ void  self_flm_implicit_step::reset_coeff(const valarray<double>& fin, double Zv
         J1m[k] += J1m[k+1];
     }
 
-    // for (size_t k(0); k < J1m.size(); ++k){
-    //     I2[k]  /=  vr[k] * vr[k] / 4.0 / M_PI;
-    //     I0[k]  *= 4.0 * M_PI;
-    //     J1m[k] *= 4.0 * M_PI * vr[k];
-    // }
-    // 
-    I2  /=  vr * vr / 4.0 / M_PI;
-    I0  *= 4.0 * M_PI;
-    J1m *= 4.0 * M_PI * vr;
+    for (size_t k(0); k < J1m.size(); ++k){
+        I2[k]  /=  vr[k] * vr[k] / 4.0 / M_PI;
+        I0[k]  *= 4.0 * M_PI;
+        J1m[k] *= 4.0 * M_PI * vr[k];
+    }
+    
+    // I2  /=  vr * vr / 4.0 / M_PI;
+    // I0  *= 4.0 * M_PI;
+    // J1m *= 4.0 * M_PI * vr;
 //     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 //     COULOMB LOGARITHMS
@@ -932,14 +932,14 @@ void  self_flm_implicit_step::reset_coeff(const valarray<double>& fin, double Zv
 //     Temporary arrays
     valarray<double>  TriI1(fin), TriI2(fin);
 
-    TriI1 = I0 + (2.0*J1m - I2)/3.0;
-    TriI2 = (I2 + J1m)/3.0;
-    // for (size_t i(0); i < TriI1.size(); ++i){
-    //     TriI1[i] = I0[i] + (2.0*J1m[i] - I2[i]) / 3.0 ;   // (-I2 + 2*J_{-1} + 3*I0) / 3
-    //     TriI2[i] = ( I2[i] + J1m[i] ) / 3.0 ;             // ( I2 + J_{-1} ) / 3
-    //                                                       // 
-    //     // std::cout << "\nTriI1[" << i << "] = " << TriI1[i] << "\n";
-    // }
+    // TriI1 = I0 + (2.0*J1m - I2)/3.0;
+    // TriI2 = (I2 + J1m)/3.0;
+    for (size_t i(0); i < TriI1.size(); ++i){
+        TriI1[i] = I0[i] + (2.0*J1m[i] - I2[i]) / 3.0 ;   // (-I2 + 2*J_{-1} + 3*I0) / 3
+        TriI2[i] = ( I2[i] + J1m[i] ) / 3.0 ;             // ( I2 + J_{-1} ) / 3
+                                                          // 
+        // std::cout << "\nTriI1[" << i << "] = " << TriI1[i] << "\n";
+    }
 //     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -1017,14 +1017,14 @@ void  self_flm_implicit_step::reset_coeff(const valarray<double>& fin, double Zv
     df0[0] = ddf0[0] * vr[0];
 
 //     Calculate 1/(2v)*(d^2f)/(dv^2),  1/v^2*df/dv
-    // for (size_t n(0); n < fin.size()-1; ++n) {
-    //     df0[n]  /= vr[n]*vr[n];
-    //     ddf0[n] /= 2.0  *vr[n];
-    // }
+     for (size_t n(0); n < fin.size(); ++n) {
+         df0[n]  /= vr[n]*vr[n];
+         ddf0[n] /= 2.0  *vr[n];
+     }
 
     // for (size_t n(0); n < fin.size()-1; ++n) {
-    df0  /= vr*vr;
-    ddf0 /= 2.0*vr;
+    //df0  /= vr*vr;
+    //ddf0 /= 2.0*vr;
     // }
     
     //     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -     

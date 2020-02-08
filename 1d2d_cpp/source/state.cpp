@@ -208,7 +208,7 @@ void SHarmonic1D::checknan(){
 
     for (size_t i(0); i<numx();++i){
         for (size_t p(0); p<nump();++p){
-            if ((isnan((*sh)(p,i).real())) || (isnan((*sh)(p,i).imag())))
+            if ((std::isnan((*sh)(p,i).real())) || (std::isnan((*sh)(p,i).imag())))
             {
                 std::cout << "NaN @ (" << p << "," << i << ")\n";
                 // MPI_Bcast(&error, 1, MPI_INT, MASTER, MPI_COMM_WORLD);
@@ -402,7 +402,7 @@ void SHarmonic1D::checknan(){
         {
             for (size_t p(0); p<nump();++p)
             {
-                if ((isnan((*sh)(p,ix,iy).real())) || (isnan((*sh)(p,ix,iy).imag())))
+                if ((std::isnan((*sh)(p,ix,iy).real())) || (std::isnan((*sh)(p,ix,iy).imag())))
                 {
                     std::cout << "NaN @ (" << p << "," << ix << "," << iy << ")\n";
                     // MPI_Bcast(&error, 1, MPI_INT, MASTER, MPI_COMM_WORLD);
@@ -1312,7 +1312,7 @@ void DistFunc1D::checknan(){
     for (size_t indx(0); indx<dim();++indx){
         for (size_t i(0); i<(*df)[indx].numx();++i){
             for (size_t p(0); p<(*df)[indx].nump();++p){
-                if (  isnan((*df)[indx](p,i).real()) || isnan((*df)[indx](p,i).imag())   )
+                if (  std::isnan((*df)[indx](p,i).real()) || std::isnan((*df)[indx](p,i).imag())   )
                 {
                     std::cout << "NaN @ (" << indx << "," << p << "," << i << ")\n";
                     int rank;
@@ -1891,7 +1891,7 @@ Array3D<double> DistFunc2D::getrelativisticcurrent() const{
             for (size_t iy(0); iy<(*df)[0].numy();++iy){
                 for (size_t ix(0); ix<(*df)[0].numx();++ix){
                     for (size_t p(0); p<(*df)[indx].nump();++p){
-                        if (  isnan((*df)[indx](p,ix,iy).real()) || isnan((*df)[indx](p,ix,iy).imag())   )
+                        if (  std::isnan((*df)[indx](p,ix,iy).real()) || std::isnan((*df)[indx](p,ix,iy).imag())   )
                         {   
                             std::cout << "NaN @ (" << indx << "," << p << "," << ix << "," << iy << ")\n";
                             exit(1);

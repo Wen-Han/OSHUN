@@ -1,7 +1,7 @@
 #!/bin/sh
 
-mkdir bin
-mkdir bin/tmp
+#mkdir bin
+#mkdir bin/tmp
 # rm -r source/tmp/*
 
 printf "OSHUN version control: \n\n" > version.txt 

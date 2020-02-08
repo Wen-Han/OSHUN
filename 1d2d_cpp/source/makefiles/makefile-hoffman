@@ -71,7 +71,7 @@ ${TMP_DIR}/functors.o: functors.cpp
 	$(COMPILER) ${CPPFLAGS} $(OPTFLAGS3) $(INCLUDE_DIRS) -c -o $@ $<
 
 ${TMP_DIR}/collisions.o: collisions.cpp
-	$(COMPILER) ${CPPFLAGS} $(OPTFLAGS3) $(INCLUDE_DIRS) -c -o $@ $<
+	$(COMPILER) ${CPPFLAGS} $(OPTFLAGS1) $(INCLUDE_DIRS) -c -o $@ $<
 
 ${TMP_DIR}/fluid.o: fluid.cpp
 	$(COMPILER) ${CPPFLAGS} $(OPTFLAGS3) $(INCLUDE_DIRS) -c -o $@ $<
